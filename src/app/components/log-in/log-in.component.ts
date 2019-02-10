@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { User } from '../../model/user';
+import { AppState } from '../../store/app.state';
+import { LogIn } from '../../store/actions/auth.actions';
+
 
 @Component({
   selector: 'app-log-in',
@@ -7,9 +13,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogInComponent implements OnInit {
 
-  constructor() { }
+  user: User = new User();
+
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit() {
+  }
+
+  onSubmit(): void {
+    const payload = {
+      email: this.user.email,
+      password: this.user.password
+    };
+    this.store.dispatch(new LogIn(payload));
   }
 
 }
