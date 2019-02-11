@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { User } from '../model/user';
+import { User } from '../models/user';
 
 
 @Injectable()
@@ -23,5 +23,10 @@ export class AuthService {
   signUp(email: string, password: string): Observable<User> {
     const url = `${this.BASE_URL}/register`;
     return this.http.post<User>(url, {email, password});
+  }
+
+  getStatus(): Observable<User> {
+    const url = `${this.BASE_URL}/status`;
+    return this.http.get<User>(url);
   }
 }
